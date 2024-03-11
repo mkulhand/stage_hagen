@@ -1,0 +1,27 @@
+body {
+	margin: 0;
+}
+header {
+	background-color:rgba(255, 0, 0, 0.8);
+}
+p {
+	padding:10px;
+}
+a:hover {
+	background-color:yellow;
+}
+a:visited{
+	color:rgb(0,255,0);
+}
+#fixe{ 
+	position:fixed;
+	background:rgba(100,0,100,0.8);
+	width:100%;
+}
+#contenue{
+	padding-top: 50px;
+}
+.imagescanards{
+	width: 500px;
+	height:500px;
+}
