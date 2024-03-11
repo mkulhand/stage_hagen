@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+	<h3>Resultat: </h3><span id=result></span>
+	<h4>
+		addition
+	</h4>
+	<form hx-post="/api/addition" hx-target="#result">
+		<input type="number" name="nombre1"/>
+		<input type="number" name="nombre2"/>
+		<input type="submit"/>
+	</form>
+	<h4>
+		soustraction
+	</h4>
+	<form hx-post="/api/soustraction" hx-target="#result">
+		<input type="number" name="nombre1"/>
+		<input type="number" name="nombre2"/>
+		<input type="submit"/>
+	</form>
+	<h4>
+		multiplication
+	</h4>
+	<form hx-post="/api/multiplication" hx-target="#result">
+		<input type="number" name="nombre1"/>
+		<input type="number" name="nombre2"/>
+		<input type="submit"/>
+	</form>
+	<h4>
+		division
+	</h4>
+	<form hx-post="/api/division" hx-target="#result">
+		<input type="number" name="nombre1"/>
+		<input type="number" name="nombre2"/>
+		<input type="submit"/>
+	</form>
+</body>
+</html>
