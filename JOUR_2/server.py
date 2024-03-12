@@ -2,6 +2,37 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+def get_params():
+	nb1 = request.form.get("nombre1")
+	nb2 = request.form.get("nombre2")
+
+	return [int(nb1), int(nb2)]
+
+def get_nb1():
+	nb1 = request.form.get("nombre1")
+	return int(nb1)
+
+def get_nb2():
+	nb2 = request.form.get("nombre2")
+	return int(nb2)
+
+def do_addition(nb1, nb2):
+	return str(nb1+nb2)
+
+def do_soustraction(nb1,nb2):
+	return str(nb1-nb2)
+
+def do_multiplication(nb1,nb2):
+	return str(nb1*nb2)
+
+def do_division(nb1,nb2):
+	return str(int(nb1/nb2))
+
+# f"{nb1} {signe} {nb2}={res}"
+def prepare_result(nb1,signe,nb2,res):
+	return f"{nb1} {signe} {nb2}={res}"
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -9,50 +40,69 @@ def home():
 @app.route("/api/addition", methods=["POST"])
 def addition():
 
-	nb1 = request.form.get("nombre1")
-	nb2 = request.form.get("nombre2")
+	# nb1, nb2 = get_params()
+
+	nb1 = get_nb1()
+	nb2 = get_nb2()
+	res=do_addition(nb1,nb2)
+
+
+	# nb1 = request.form.get("nombre1")
+	# nb2 = request.form.get("nombre2")
 	# nb1=int(nb1)
 	# nb2=int(nb2)
 	# res=nb1+nb2
 	# res=str(res)
 
-	# return res
+	# return str(int(nb1) + int(nb2))
+	return res
 
-	return str(int(nb1) + int(nb2))
 
 @app.route("/api/soustraction", methods=["POST"])
 def soustraction():
 
-	nb1 = request.form.get("nombre1")
-	nb2 = request.form.get("nombre2")
-	nb1=int(nb1)
-	nb2=int(nb2)
-	res=nb1-nb2
-	res=str(res)
+	nb1 = get_nb1()
+	nb2 = get_nb2()
+	res=do_soustraction(nb1,nb2)
+
+	# nb1 = request.form.get("nombre1")
+	# nb2 = request.form.get("nombre2")
+	# nb1=int(nb1)
+	# nb2=int(nb2)
+	# res=nb1-nb2
+	# res=str(res)
 
 	return res
 
 @app.route("/api/multiplication", methods=["POST"])
 def multiplication():
 
-	nb1 = request.form.get("nombre1")
-	nb2 = request.form.get("nombre2")
-	nb1=int(nb1)
-	nb2=int(nb2)
-	res=nb1*nb2
-	res=str(res)
+	nb1 = get_nb1()
+	nb2 = get_nb2()
+	res=do_multiplication(nb1,nb2)
+
+	# nb1 = request.form.get("nombre1")
+	# nb2 = request.form.get("nombre2")
+	# nb1=int(nb1)
+	# nb2=int(nb2)
+	# res=nb1*nb2
+	# res=str(res)
 
 	return res
 
 @app.route("/api/division", methods=["POST"])
 def division():
 
-	nb1 = request.form.get("nombre1")
-	nb2 = request.form.get("nombre2")
-	nb1=int(nb1)
-	nb2=int(nb2)
-	res=nb1/nb2
-	res=str(int(res))
+	nb1 = get_nb1()
+	nb2 = get_nb2()
+	res=do_division(nb1,nb2)
+
+	# nb1 = request.form.get("nombre1")
+	# nb2 = request.form.get("nombre2")
+	# nb1=int(nb1)
+	# nb2=int(nb2)
+	# res=nb1/nb2
+	# res=str(int(res))
 
 	return res
 
@@ -60,10 +110,13 @@ def division():
 def operation():
 
 	operation = request.form.get("operation")
-	nb1 = request.form.get("nombre1")
-	nb2 = request.form.get("nombre2")
-	nb1=int(nb1)
-	nb2=int(nb2)
+	nb1 = get_nb1()
+	nb2 = get_nb2()
+
+	# nb1 = request.form.get("nombre1")
+	# nb2 = request.form.get("nombre2")
+	# nb1=int(nb1)
+	# nb2=int(nb2)
 	# addition="+"
 	# soustraction="-"
 	# multiplication="*"
@@ -74,19 +127,23 @@ def operation():
 	if(operation=="addition"):
 		# signe=addition
 		signe="+"
-		res=nb1+nb2
+		res=do_addition(nb1,nb2)
+		# res=nb1+nb2
 	elif(operation=="soustraction"):
 		# signe=soustraction
 		signe="-"
-		res=nb1-nb2
+		res=do_soustraction(nb1,nb2)
+		# res=nb1-nb2
 	elif(operation=="multiplication"):
 		# signe=multiplication
 		signe="*"
-		res=nb1*nb2
+		res=do_multiplication(nb1,nb2)
+		# res=nb1*nb2
 	elif(operation=="division"):
 		# signe=division
 		signe="/"
-		res=nb1/nb2
+		res=do_division(nb1,nb2)
+		# res=nb1/nb2
 	else:
 		raise Exception("Please choose an operation")
 
@@ -103,8 +160,8 @@ def operation():
 	# 		raise Exception("Please choose an operation")
 
 
-
-	res=f"{nb1} {signe} {nb2}={res}"
+	res=prepare_result(nb1,signe,nb2,res)
+	# res=f"{nb1} {signe} {nb2}={res}"
 	# res=str(nb1) + " " + operation + " " + str(nb2) + " = " + str(res)
 
 	return res
