@@ -5,8 +5,8 @@
 </head>
 <body>
 	<h3>Resultat: </h3><span id=result></span>
-	<h4>
-		addition
+	<h4
+>		addition
 	</h4>
 	<form hx-post="/api/addition" hx-target="#result">
 		<input type="number" name="nombre1"/>
@@ -37,5 +37,43 @@
 		<input type="number" name="nombre2"/>
 		<input type="submit"/>
 	</form>
+	<h4>
+		operation - radio
+	</h4>
+	<form hx-post="/api/operation" hx-target="#result">
+		<input type="number" name="nombre1"/>
+		<div>
+			<input type="radio" name="operation" value="addition" id="addition" checked/>
+			<label for="addition">+</label>
+		</div>
+		<div>
+			<input type="radio" name="operation" value="soustraction" id="soustraction" />
+			<label for="soustraction">-</label>
+		</div>
+			<div>
+			<input type="radio" name="operation" value="multiplication" id="multiplication" />
+			<label for="multiplication">*</label>
+		</div>
+			<div>
+			<input type="radio" name="operation" value="division" id="division" />
+			<label for="division">/</label>
+		</div>
+		<input type="number" name="nombre2"/>
+		<input type="submit"/>
+	</form>
+	<h4>
+		operation - select
+	</h4>
+		<form hx-post="/api/operation" hx-target="#result">
+		  <input type="number" name="nombre1"/>
+		<select name="operation" id="operation-select">
+  <option value="">--Please choose an option--</option>
+  <option value="addition">addition</option>
+  <option value="soustraction">soustraction</option>
+  <option value="multiplication">multiplication</option>
+  <option value="division">division</option>
+  <input type="number" name="nombre2"/>
+  		<input type="submit"/>
+</select>
 </body>
 </html>
