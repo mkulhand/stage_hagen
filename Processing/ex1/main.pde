@@ -32,7 +32,7 @@ void draw() {
   }
   
   for(int i = 0;i<projs.size();i++){
-    if(projs.get(i).pose_y-50>700){
+    if(projs.get(i).pos_y-50>700){
       projs.remove(i);
     }
   }
