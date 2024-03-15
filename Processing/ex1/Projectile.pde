@@ -4,12 +4,13 @@ final int type_special = 1;
 final int type_heal = 2;
 
 class Projectile {
-  int pos_x = int(random(width));
+  int pos_x = int(random(10,490));
   int pos_y = 0;
   int vitesse = int(random(7, 20));
   boolean has_hit = false;
   int rand = int(random(100));
   int type;
+  int size;
 
   Projectile() {
     //calcule le type
@@ -17,25 +18,32 @@ class Projectile {
     int rand = int(random(100));
     if(rand <= 50){
       this.type = type_norm; 
-    }
-    if(rand >= 50 && rand <= 75){
-      this.type = type_special; 
+      this.size = 80;
     }
     if(rand >= 75){
+      this.type = type_special; 
+      this.size = 100;
+    }
+    if(rand >= 50 && rand <= 75){
       this.type = type_heal; 
+      this.size = 70;
     }
     println(this.type);
   }
   
   void display() {
-    fill(255, 0, 0);
+    if(this.type == type_norm){
+     asteroid.resize(this.size,0);
+     image(asteroid,this.pos_x,this.pos_y);
+    }
     if(this.type == type_special){
-     fill(0,0,255); 
+     monstre_spe.resize(this.size,0);
+     image(monstre_spe,this.pos_x,this.pos_y);
     }
     if(this.type == type_heal){
-     fill(0,255,0); 
+     heal.resize(this.size,0);
+     image(heal,this.pos_x,this.pos_y);
     }
-    circle(this.pos_x, this.pos_y, 50);
   }
 
   void move() {
@@ -45,13 +53,15 @@ class Projectile {
   void is_collide() {
     int dmg = 1;
     
-    if (this.pos_y + 25 > player.pos_y && this.pos_y - 25 < player.pos_y + 50
-      && this.pos_x + 25> player.pos_x && this.pos_x - 25 < player.pos_x + 50) {
+    if (this.pos_y + this.size   > player.pos_y + 28 && this.pos_y < player.pos_y + player.size - 28
+      && this.pos_x + this.size > player.pos_x + 28 && this.pos_x < player.pos_x + player.size - 28) {
         this.has_hit = true;
         if(this.type == type_special){
           dmg = 2;
         }
-
+        if(this.type == type_heal){
+         dmg = -1; 
+        }
         player.take_damage(dmg);
     }
   }
